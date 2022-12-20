@@ -1,0 +1,16 @@
+path_initial_img: 'data/initial_images/'
+path_preproc_img: 'data/preprocess_images/'
+path_dataset: 'data/Dataset/'
+
+size_train: 0.6
+size_val: 0.2
+size_test: 0.2
+
+nc: 5
+names: [
+  'Первый канал',
+  'Звезда',
+  'Meta',
+  'Instagram',
+  'Facebook'
+]
