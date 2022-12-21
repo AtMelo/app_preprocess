@@ -1,6 +1,6 @@
 # -*- coding: utf8 -*-
 import random
-
+from typing import Union, Tuple, List
 import matplotlib.pyplot as plt
 import numpy as np
 import logging
@@ -120,10 +120,10 @@ class Preprocess:
         logging.debug(f'\t\tRenamed {len(inp_files)} images')
 
     def expand_split_dataset(self,
-                             num_transform,
-                             size_train,
-                             size_val,
-                             size_test,
+                             num_transform: int,
+                             size_train: float,
+                             size_val: float,
+                             size_test: float,
                              view=False):
 
         self._check_params(num_transform,
@@ -144,7 +144,13 @@ class Preprocess:
         self._split_ds(size_train, size_val, size_test)
         return
 
-    def _augmentation(self, path_img, num_trf, view):
+    def _augmentation(self,
+                      path_img: Union[str, Path],
+                      num_trf: int,
+                      view: bool):
+        """
+        Augmentation process. Expand dataset in num_trf times.
+        """
         # Save path for the augmentation
         self.path_img_DS.mkdir(parents=True, exist_ok=True)
         self.path_lbl_DS.mkdir(parents=True, exist_ok=True)
@@ -208,7 +214,8 @@ class Preprocess:
                  orig_img=image)
 
     @staticmethod
-    def _create_transforms(img_i, percent_crop=(0.8, 0.8)):
+    def _create_transforms(img_i: np.ndarray,
+                           percent_crop: Tuple[float] = (0.8, 0.8)):
         h, w, _ = img_i.shape
         crop_size = (
             int(percent_crop[0] * h),
@@ -237,9 +244,9 @@ class Preprocess:
         return transform
 
     def _split_ds(self,
-                  size_train,
-                  size_val,
-                  size_test):
+                  size_train: float,
+                  size_val: float,
+                  size_test: float):
         # Destination paths
         # Train dir
         p_train_im = self.path_cls_DS / 'train/images'
@@ -304,7 +311,11 @@ class Preprocess:
         shutil.rmtree(self.path_lbl_DS)
 
     def update_classes_txt(self,
-                           names_cls: list):
+                           names_cls: List[str]):
+        """
+        When adding another class, you need to update the text files in the
+        entire dataset.
+        """
         self._check_params(names_cls)
         for root, dirs, files in os.walk(self.dataset_path):
             name_root_dir = root.split('/')[-1]

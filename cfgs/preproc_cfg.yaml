@@ -6,11 +6,8 @@ size_train: 0.6
 size_val: 0.2
 size_test: 0.2
 
-nc: 5
+nc: 2
 names: [
-  'Первый канал',
-  'Звезда',
-  'Meta',
-  'Instagram',
-  'Facebook'
+  'Dog',
+  'Cat'
 ]

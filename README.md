@@ -12,9 +12,17 @@ Below image can be augmented to the following images.
 | Example 1                              | Example 2                              | Example 3                              | Example 4                              |
 |----------------------------------------|----------------------------------------|----------------------------------------|----------------------------------------|
 | ![example1.jpg](images/trnf_img_1.png) | ![example2.jpg](images/trnf_img_2.png) | ![example3.jpg](images/trnf_img_3.png) | ![example4.jpg](images/trnf_img_4.png) |
+## Install
+- - - 
+```commandline
+git clone https://github.com/AtMelo/app_preprocess.git
+pip install -r requirements.txt
+```
 ## Usage
 - - -
 - ### Prepare data:
+    Put files (Images) to augment in `initial_images/`. (Do not create sub directories.)
+
     Specify parameters in the config `preproc_cfg.yaml`:
 ```yaml
 path_initial_img: 'data/initial_images/'
@@ -24,6 +32,7 @@ path_dataset: 'data/Dataset/'
 ```commandline
 python3 preprocess.py --prepare --cfg cfgs/preproc_cfg.yaml --name_cls Class_0 --verbose
 ```
+- ### Image markup with [Labelimg](https://github.com/heartexlabs/labelImg)
 - ### Expand and split dataset:
     Specify parameters in the config `preproc_cfg.yaml`:
 ```yaml
@@ -34,6 +43,7 @@ size_test: 0.2
 ```commandline
 python3 preprocess.py --form_dataset --cfg cfgs/preproc_cfg.yaml --name_cls Class_0 --num_transform N --verbose
 ```
+Augmented images and annotations are generated in `data/Dataset/Class_0`.
 Dataset structure after executing this command: 
 ```
       app_preprocess
